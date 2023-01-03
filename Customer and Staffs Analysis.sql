@@ -163,5 +163,79 @@ select cs.*
 , department.location as Salesman_location
 from dbo.Vcustomer_sales_man as cs left outer join department on cs.salesman_department_number=department.department_number;
 
+drop view dbo.Vcustomer_sales_man
+create view dbo.Vcustomer_sales_man
+AS 
+select customer.customer_number,
+	customer.customer_name,
+	customer.customer_number as Number,
+	customer.saleman_employee_number as salesman_employee_number,
+	convert (varchar, employee.hire_date,101) as SalesManHireDate,
+	employee.employee_name as salesman_employee_name, 
+	employee.department_number as salesman_department_number
+from dbo.customer left outer join employee on customer.saleman_employee_number=employee.employee_number;
+
+CREATE VIEW  dbo.CustomerSalesDepartment
+AS
+select cs.*
+,department.department_name
+, department.location as Salesman_location
+from dbo.Vcustomer_sales_man as cs left outer join department on cs.salesman_department_number=department.department_number;
+
+use [SqlTrainingOnlineSimpleDb]
+
+create procedure dbo.spHireDate
+AS
+select max(hire_date) Max_date from employee
+execute dbo.spHireDate
+
+declare @job varchar(9)
+set @job='SALESMAN'
+select * from employee where job=@job;
+
+CREATE PROCEDURE DBO.spAddNumbers
+(
+		@number1 int
+		,@number2 int
+		,@number3 int
+)
+AS
+BEGIN
+declare @result int, @biggest int, @secondbiggest int;
+if
+	@number1 > number2 @biggest=@number1;
+else 
+	@biggest=@number2;
+
+set @result=@number1 + @number2;
+set @result=@result + @number3;
+select @result;
+END
+
+CREATE PROCEDURE DBO.spRankNumbers
+(
+		@number1 int
+		,@number2 int
+)
+AS
+BEGIN
+declare @biggest int, @smallest int;
+if
+	@number1 > @number2 
+	BEGIN
+		set @biggest=@number1;
+		set @smallest=@number2;
+	END
+else 
+	BEGIN
+		set @smallest=@number1;
+		set @biggest=@number2;
+	END
+	SELECT @biggest as largeNumber, @smallest as SmallNumbers
+END
+
+execute dbo.spRankNumbers 1,6
+
+
 
 
