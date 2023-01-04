@@ -1,11 +1,11 @@
 USE [master]
 GO
 
-if not exists(select * from sys.databases where name = 'SqlTrainingOnlineSimpleDB')
+if not exists(select * from sys.databases where name = 'SalesDB')
 CREATE DATABASE [SqlTrainingOnlineSimpleDB]
 GO
 
-USE [SqlTrainingOnlineSimpleDB]
+USE [SalesDB]
 GO
 /****** Object:  Table [dbo].[customer]   ******/
 SET ANSI_NULLS ON
@@ -114,7 +114,7 @@ GO
 INSERT [dbo].[employee] ([employee_number], [employee_name], [job], [manager], [hire_date], [salary], [commision], [department_number]) VALUES (CAST(7934 AS Decimal(4, 0)), N'MILLER', N'CLERK', CAST(7782 AS Decimal(4, 0)), CAST(0x0000975200000000 AS DateTime), CAST(1300.00 AS Decimal(7, 2)), NULL, CAST(10 AS Decimal(2, 0)))
 GO
 
-use [SqlTrainingOnlineSimpleDb]
+use [SalesDb]
  
 select * from dbo.employee where employee_number=7521
 
@@ -182,7 +182,7 @@ select cs.*
 , department.location as Salesman_location
 from dbo.Vcustomer_sales_man as cs left outer join department on cs.salesman_department_number=department.department_number;
 
-use [SqlTrainingOnlineSimpleDb]
+use [SalesDb]
 
 create procedure dbo.spHireDate
 AS
